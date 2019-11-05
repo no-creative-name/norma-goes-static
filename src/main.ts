@@ -80,15 +80,19 @@ export const renderComponent = (componentData: IContent, renderConfig: IRenderCo
     const strippedData = Object.assign({}, componentData);
     Object.keys(componentData.data).forEach(key => {
         const propData = componentData.data[key];
-        console.log(propData);
         
         if (Array.isArray(propData)) {
-            componentData.data[key].forEach((subData, index) => {
+            for(let i = 0; i < componentData.data[key].length; i++) {
+                const subData = componentData.data[key][i];
                 if('type' in subData && renderConfig.components.includes(subData.type)) {
-                    strippedData.data[key][index] = {};
+                    strippedData.data[key].splice(i, 1);
                     subComponentHTML += renderComponent(subData, renderConfig);
+                    i--;
                 }
-            })
+            }
+            if(componentData.data[key].length === 0) {
+                delete strippedData.data[key];
+            }
         }
         else if (typeof propData === 'object') {
             if('type' in propData && renderConfig.components.includes(propData.type)) {
@@ -97,6 +101,8 @@ export const renderComponent = (componentData: IContent, renderConfig: IRenderCo
             }
         }
     });
+    console.log(strippedData);
+    
     return generateHtmlTag(componentData, renderConfig.prefix, renderConfig.fileUrl, subComponentHTML);
 }
 
