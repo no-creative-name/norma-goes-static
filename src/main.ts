@@ -101,7 +101,6 @@ export const renderComponent = (componentData: IContent, renderConfig: IRenderCo
             }
         }
     });
-    console.log(strippedData);
     
     return generateHtmlTag(componentData, renderConfig.prefix, renderConfig.fileUrl, subComponentHTML);
 }

@@ -24,7 +24,7 @@ describe('generateHtmlTag', () => {
             id: '',
             type: 'SuperSlider'
         }
-        const fileUrl = 'fileUrl';
+        const fileUrl = 'fileUrl/';
         const outputTag = `
             <super-slider 
                 data-resources="[{paths: ['fileUrl/index.ts']}]"
@@ -120,7 +120,7 @@ describe('generateHtmlTag', () => {
             type: 'SuperSlider'
         }
         const prefix = 'prefix';
-        const fileUrl = 'fileUrl';
+        const fileUrl = 'fileUrl/';
         const outputTag = `
             <prefix-super-slider 
                 data-resources="[{paths: ['fileUrl/index.ts']}]"

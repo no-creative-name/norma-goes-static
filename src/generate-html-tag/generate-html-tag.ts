@@ -5,7 +5,7 @@ export const generateHtmlTag = (componentData: IContent, prefix?: string, fileUr
         throw new Error("Could not generate HTML tag: Component data is undefined");
     }
     return `<${generateTagName(componentData.type, prefix)}
-                data-resources="[{paths: ['${fileUrl ? `${fileUrl}/`: ``}index.ts']}]"
+                data-resources="[{paths: ['${fileUrl ? fileUrl: ``}index.ts']}]"
                 ${Object.keys(componentData.data).map((key) => generateAttribute(componentData.data[key], key)).join(" ")}
             >
                 ${innerHTML ? innerHTML : ``}

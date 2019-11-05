@@ -8,4 +8,4 @@ describe('renderPage', () => {
     test('throws error when pageData is undefined.', () => {
         expect(() => renderPage(renderConfig, undefined)).toThrow(Error);
     });
-})
+});
