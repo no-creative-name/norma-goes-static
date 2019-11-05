@@ -30,8 +30,8 @@ describe('generateHtmlTag', () => {
                 data-resources="[{paths: ['fileUrl/index.ts']}]"
                 parameter-1="xyz"
                 parameter-2=45
-                parameter-three="{"x": 1}"
-                parameter-four="[{"x": 1},{"y": 2}]"
+                parameter-three="{'x': 1}"
+                parameter-four="[{'x': 1},{'y': 2}]"
             >
             </super-slider>`
         expect(generateHtmlTag(componentData, undefined, fileUrl).replace(/\s/g, '')).toBe(outputTag.replace(/\s/g, ''));
@@ -61,8 +61,8 @@ describe('generateHtmlTag', () => {
                 data-resources="[{paths: ['index.ts']}]"
                 parameter-1="xyz"
                 parameter-2=45
-                parameter-three="{"x": 1}"
-                parameter-four="[{"x": 1},{"y": 2}]"
+                parameter-three="{'x': 1}"
+                parameter-four="[{'x': 1},{'y': 2}]"
             >
             </super-slider>`
         expect(generateHtmlTag(componentData, undefined, undefined).replace(/\s/g, '')).toBe(outputTag.replace(/\s/g, ''));
@@ -92,8 +92,8 @@ describe('generateHtmlTag', () => {
                 data-resources="[{paths: ['index.ts']}]"
                 parameter-1="xyz"
                 parameter-2=45
-                parameter-three="{"x": 1}"
-                parameter-four="[{"x": 1},{"y": 2}]"
+                parameter-three="{'x': 1}"
+                parameter-four="[{'x': 1},{'y': 2}]"
             >
             inner
             </super-slider>`
@@ -126,8 +126,8 @@ describe('generateHtmlTag', () => {
                 data-resources="[{paths: ['fileUrl/index.ts']}]"
                 parameter-1="xyz"
                 parameter-2=45
-                parameter-three="{"x": 1}"
-                parameter-four="[{"x": 1},{"y": 2}]"
+                parameter-three="{'x': 1}"
+                parameter-four="[{'x': 1},{'y': 2}]"
             >
             </prefix-super-slider>`
         expect(generateHtmlTag(componentData, prefix, fileUrl).replace(/\s/g, '')).toBe(outputTag.replace(/\s/g, ''));

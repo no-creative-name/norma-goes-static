@@ -1,5 +1,4 @@
 export const exampleRenderConfig = {
-    attributesOnly: [],
     components: ["navigation", "accordion_container", "accordion_item", "footer"],
     fileUrl: "src/components/",
     mapping: [

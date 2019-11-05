@@ -9,6 +9,9 @@ const pageObject = {
             {
                 data: {
                     prop1: 1,
+                    prop2: {
+                        yes: "!"
+                    },
                     subContent: [
                         {
                             data: {

@@ -28,7 +28,7 @@ const generateAttribute = (value: string | number | any[] | any, key: string) =>
     if (typeof value === "string") {
         return `${camelSnakeToKebab(key)}="${value}"`;
     }
-    return `${camelSnakeToKebab(key)}="${JSON.stringify(value)}"`;
+    return `${camelSnakeToKebab(key)}="${JSON.stringify(value).replace(/"/g, "'")}"`;
 };
 
 const camelSnakeToKebab = (camel: string) => {
