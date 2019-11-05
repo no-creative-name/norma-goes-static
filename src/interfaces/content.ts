@@ -3,8 +3,7 @@ export interface IContent {
     data: IContentData;
     id: string;
   }
-  
-  interface IContentData {
+
+interface IContentData {
     [key: string]: any;
   }
-  

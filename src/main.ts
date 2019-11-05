@@ -1,18 +1,10 @@
-import { renderConfig } from './render-config';
-import { IRenderConfig } from './interfaces/render-config';
-import { generateHtmlTag } from './generate-html-tag/generate-html-tag';
-import { IContent } from './interfaces/content';
+import { generateHtmlTag } from "./generate-html-tag/generate-html-tag";
+import { IContent } from "./interfaces/content";
+import { IRenderConfig } from "./interfaces/render-config";
+import { exampleRenderConfig } from "./render-config";
 
 const pageObject = {
     data: {
-        mainNavigation: {
-            data: {
-                prop1: 'val1',
-                prop2: 'val2'
-            },
-            id: '',
-            type: 'navigation'
-        },
         content: [
             {
                 data: {
@@ -20,89 +12,96 @@ const pageObject = {
                     subContent: [
                         {
                             data: {
-                                propX: 'Y'
+                                propX: "Y",
                             },
-                            id: '',
-                            type: 'accordion_item'
+                            id: "",
+                            type: "accordion_item",
                         },
                         {
                             data: {
-                                propX: 'Z'
+                                propX: "Z",
                             },
-                            id: '',
-                            type: 'accordion_item'
-                        }
-                    ]
+                            id: "",
+                            type: "accordion_item",
+                        },
+                    ],
                 },
-                id: '',
-                type: 'accordion_container'
+                id: "",
+                type: "accordion_container",
             },
             {
                 data: {
-                    prop1: 2
+                    prop1: 2,
                 },
-                id: '',
-                type: 'slider'
-            }
-        ]
+                id: "",
+                type: "slider",
+            },
+        ],
+        mainNavigation: {
+            data: {
+                prop1: "val1",
+                prop2: "val2",
+            },
+            id: "",
+            type: "navigation",
+        },
     },
-    id: '',
-    type: 'page'
-}
+    id: "",
+    type: "page",
+};
 
 export const renderPage = (renderConfig: IRenderConfig, pageData: IContent) => {
-    if(!renderConfig) {
+    if (!renderConfig) {
         throw new Error(`Couldn't render page: render config is undefined`);
     }
-    if(!pageData) {
+    if (!pageData) {
         throw new Error(`Couldn't render page: page data is undefined`);
     }
-    const htmlStrings = renderConfig.mapping.map(contentMap => {
+    const htmlStrings = renderConfig.mapping.map((contentMap) => {
         const contentData = pageData.data[contentMap.property];
-        if(contentData) {
-            if(Array.isArray(contentData)) {
-                const htmlContent = contentData.map(singularData => {
+        if (contentData) {
+            if (Array.isArray(contentData)) {
+                const htmlContent = contentData.map((singularData) => {
                     return renderComponent(singularData, renderConfig);
                 });
-                return `<${contentMap.htmlTag}>${htmlContent.join('')}</${contentMap.htmlTag}>`
+                return `<${contentMap.htmlTag}>${htmlContent.join("")}</${contentMap.htmlTag}>`;
             }
             return `<${contentMap.htmlTag}>
                 ${renderComponent(contentData, renderConfig)}
             </${contentMap.htmlTag}>`;
         }
-        return '';
+        return "";
     });
-    return htmlStrings.join('');
-}
+    return htmlStrings.join("");
+};
 
 export const renderComponent = (componentData: IContent, renderConfig: IRenderConfig): string => {
     let subComponentHTML = ``;
     const strippedData = Object.assign({}, componentData);
-    Object.keys(componentData.data).forEach(key => {
+    Object.keys(componentData.data).forEach((key) => {
         const propData = componentData.data[key];
-        
+
         if (Array.isArray(propData)) {
-            for(let i = 0; i < componentData.data[key].length; i++) {
+            for (let i = 0; i < componentData.data[key].length; i++) {
                 const subData = componentData.data[key][i];
-                if('type' in subData && renderConfig.components.includes(subData.type)) {
+                if ("type" in subData && renderConfig.components.includes(subData.type)) {
                     strippedData.data[key].splice(i, 1);
                     subComponentHTML += renderComponent(subData, renderConfig);
                     i--;
                 }
             }
-            if(componentData.data[key].length === 0) {
+            if (componentData.data[key].length === 0) {
                 delete strippedData.data[key];
             }
-        }
-        else if (typeof propData === 'object') {
-            if('type' in propData && renderConfig.components.includes(propData.type)) {
+        } else if (typeof propData === "object") {
+            if ("type" in propData && renderConfig.components.includes(propData.type)) {
                 delete strippedData.data[key];
                 subComponentHTML += renderComponent(propData, renderConfig);
             }
         }
     });
-    
-    return generateHtmlTag(componentData, renderConfig.prefix, renderConfig.fileUrl, subComponentHTML);
-}
 
-document.body.innerHTML = renderPage(renderConfig, pageObject);
+    return generateHtmlTag(componentData, renderConfig.prefix, renderConfig.fileUrl, subComponentHTML);
+};
+
+document.body.innerHTML = renderPage(exampleRenderConfig, pageObject);

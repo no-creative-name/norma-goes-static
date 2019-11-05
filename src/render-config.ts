@@ -1,20 +1,20 @@
-export const renderConfig = {
-    components: ['navigation', 'accordion_container', 'accordion_item', 'footer'],
+export const exampleRenderConfig = {
     attributesOnly: [],
+    components: ["navigation", "accordion_container", "accordion_item", "footer"],
+    fileUrl: "src/components/",
     mapping: [
         {
-            htmlTag: 'header',
-            property: 'mainNavigation'
+            htmlTag: "header",
+            property: "mainNavigation",
         },
         {
-            htmlTag: 'main',
-            property: 'content'
+            htmlTag: "main",
+            property: "content",
         },
         {
-            htmlTag: 'footer',
-            property: 'footer'
-        }
+            htmlTag: "footer",
+            property: "footer",
+        },
     ],
-    prefix: 'x',
-    fileUrl: 'src/components/'
+    prefix: "x",
 };
